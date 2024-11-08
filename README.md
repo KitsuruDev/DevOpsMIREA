@@ -1,2 +1,2 @@
 # DevOpsMIREA
-Main DevOps
+Готовое приложение, контенеризованное через Docker
