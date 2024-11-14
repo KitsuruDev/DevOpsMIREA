@@ -1,9 +1,38 @@
-name: CI/CD Pipeline
+name: Node.js CI/CD
 
 on:
   push:
-    banches:
-      -main
+    branches:
+      - main
   pull_request:
     branches:
-      -main
+      - main
+
+
+jobs:
+  build:
+    runs-on: desktop-linux
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    runs-on: desktop-linux
+    needs: build
+    
+    steps:
+      - name: Deploy to production
+        run: |
+          echo "Deploying to production server..."
+       
