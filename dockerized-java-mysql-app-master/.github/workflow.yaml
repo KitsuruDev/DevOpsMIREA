@@ -1,0 +1,9 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    banches:
+      -main
+  pull_request:
+    branches:
+      -main
