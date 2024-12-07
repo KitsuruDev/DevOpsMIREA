@@ -1,8 +1,8 @@
 # a lightweight linux distribution
 FROM tomcat:8.0-alpine
 
-WORKDIR /app
-COPY ./java-app.jar /app
+WORKDIR /usr/src/main/java
+COPY . .
 
 # Порт, который "прослушивается" дистрибутивом tomcat внутри контейнера
 EXPOSE 8080
