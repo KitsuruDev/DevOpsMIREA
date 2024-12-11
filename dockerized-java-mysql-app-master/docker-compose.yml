@@ -24,9 +24,6 @@ services:
       - /$(pwd):/usr/local/tomcat/webapps
     depends_on:
       - db
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/company?useSSL=false&serverTimezone=UTC
 
 volumes:
   db_data:
