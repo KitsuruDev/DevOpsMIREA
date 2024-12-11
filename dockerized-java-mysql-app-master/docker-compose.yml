@@ -1,24 +1,32 @@
 version: '3'
 
 services:
-  javaapp:
-    image: mixaverross88/dockerize_java_mysql_example_project
+  db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
     ports:
-      - 80:8080
-    networks:
-      - isolated
+      - "3311:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build:
+      context: ./java
+      dockerfile: Dockerfile
+    image: javaapp:latest
+    ports:
+      - "8080:8080"
     volumes:
       - /$(pwd):/usr/local/tomcat/webapps
-  mysqlapp:
-    image: mixaverross88/dockerize_java_mysql_example_project_mysql
+    depends_on:
+      - db
     environment:
-      - MYSQL_ROOT_PASSWORD=supersecret 
-    ports:
-      - 3311:3306
-    networks:
-      - isolated
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/company?useSSL=false&serverTimezone=UTC
 
-networks: 
-  isolated:
-    driver: bridge
-    
+volumes:
+  db_data:
