@@ -30,6 +30,6 @@ volumes:
 
 jobs:
   build:
-- name: Stop services
+    - name: Stop services
       if: always()
       run: docker-compose down
