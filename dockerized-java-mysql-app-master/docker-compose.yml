@@ -27,3 +27,9 @@ services:
 
 volumes:
   db_data:
+
+jobs:
+  build:
+- name: Stop services
+      if: always()
+      run: docker-compose down
